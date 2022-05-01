@@ -6,9 +6,6 @@
 
 #define MAIN_TAG  "MAIN"
 
-#define RELAY_PIN 23
-#define MAX_PWM   255
-
 uint8_t currentValue = 0;
 
 PWMFanBLECallback* callback;

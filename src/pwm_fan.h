@@ -7,7 +7,7 @@
 
 #define PWM_FAN_TAG  "PWM_FAN"
 
-#define PWM_PIN 23
+#define PWM_PIN 25
 // #define RPM_PIN 22  // TODO
 #define MAX_PWM 255
 
