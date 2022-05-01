@@ -1,0 +1,17 @@
+{
+  "name": "wireless-fan",
+  "version": "1.0.0",
+  "description": "simple wireless fan controller",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "author": "allape",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^13.0.2"
+  },
+  "dependencies": {
+    "@material/slider": "^14.0.0"
+  }
+}
