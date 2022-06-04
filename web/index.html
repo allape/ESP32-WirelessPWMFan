@@ -1,0 +1,54 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireless PWM Fan</title>
+    <link rel="stylesheet" href="node_modules\@material\slider\dist\mdc.slider.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .slider-wrapper {
+            display: block;
+            width: 100%;
+        }
+        .current-value-wrapper {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-wrapper">
+        <div class="current-value-wrapper">0%</div>
+        <div class="mdc-slider mdc-slider--discrete">
+            <input class="mdc-slider__input" type="range" min="0" max="100" value="0" name="speed">
+            <div class="mdc-slider__track">
+                <div class="mdc-slider__track--inactive"></div>
+                <div class="mdc-slider__track--active">
+                    <div class="mdc-slider__track--active_fill"></div>
+                </div>
+            </div>
+            <div class="mdc-slider__thumb">
+                <div class="mdc-slider__value-indicator-container" aria-hidden="true">
+                    <div class="mdc-slider__value-indicator">
+                        <span class="mdc-slider__value-indicator-text">
+                          50
+                        </span>
+                    </div>
+                  </div>
+                <div class="mdc-slider__thumb-knob"></div>
+            </div>
+        </div>
+    </div>
+    <script src="node_modules\@material\slider\dist\mdc.slider.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
