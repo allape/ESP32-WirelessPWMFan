@@ -7,6 +7,8 @@
 
 #define PWM_FAN_TAG  "PWM_FAN"
 
+#define PWN_CHAN 0
+#define PWN_FREQ 156250
 #define PWM_PIN 25
 // #define RPM_PIN 22  // TODO
 #define MAX_PWM 255
@@ -22,6 +24,9 @@ private:
 public:
     explicit PWMFanBLECallback() {
         this->currentPWM = EEPROM.readByte(0);
+
+        ledcSetup(PWN_CHAN, PWN_FREQ, 8);
+        ledcAttachPin(PWM_PIN, PWN_CHAN);
     }
 
     void setBLECharacteristic(BLECharacteristic* pCharacteristic) {
@@ -41,7 +46,7 @@ public:
 
     void setPWM(uint8_t pwm) {
         this->currentPWM = pwm;
-        analogWrite(PWM_PIN, pwm, MAX_PWM);
+        ledcWrite(PWN_CHAN, pwm);
         EEPROM.put(0, pwm);
     }
 
