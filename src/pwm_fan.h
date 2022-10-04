@@ -6,14 +6,14 @@
 
 #define PWM_FAN_TAG  "[PWM_FAN]"
 
-#define PWN_CHAN 0
-#define PWN_FREQ 156250
-#define PWM_PIN 25
+#define PWN_CHAN        0
+#define PWN_FREQ        156250
+#define PWM_PIN         25
 // #define RPM_PIN 22  // TODO
-#define MAX_PWM 255
+#define MAX_PWM         255
 
-#define CMD_RESERVED 0
-#define CMD_THROTTLE 1
+#define CMD_RESERVED    0
+#define CMD_THROTTLE    1
 
 class PWMFanBLECallback: public BLECharacteristicCallbacks {
 private:
@@ -39,14 +39,13 @@ public:
             uint8_t cmd = value[0];
             switch (cmd) {
             case CMD_RESERVED:
-                Serial.printf("%s %s\r\n", PWM_FAN_TAG, "CMD_RESERVED");
+                Serial.printf("%s CMD_RESERVED\r\n", PWM_FAN_TAG);
                 break;
             case CMD_THROTTLE:
                 if (value.length() >= 2) {
                     uint8_t pwmValue = value[1];
                     setPWM(pwmValue);
-                    Serial.printf("%s %s\r\n", PWM_FAN_TAG, "NEW PWM");
-                    Serial.printf("%s %d\r\n", PWM_FAN_TAG, pwmValue);
+                    Serial.printf("%s new PWM: %d\r\n", PWM_FAN_TAG, pwmValue);
                 }
                 break;
             default:
