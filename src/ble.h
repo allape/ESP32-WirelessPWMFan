@@ -4,11 +4,10 @@
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLECharacteristic.h>
-#include "printer.h"
 
-#define SERVICE_UUID        "7b742148-fe4e-411e-a762-fd5967d7749b"
+#define SERVICE_UUID        "7b742148-fe4e-411e-a762-fd5967d77491"
 #define COMMON_CHAR_UUID    "10971da0-aa16-4042-a054-a1501bb3f2d5"
-#define TAG_BLE             "BLE"
+#define TAG_BLE             "[BLE]"
 #define BLE_NAME            "WirelessPWMFan"
 
 #define DEFAULT_VALUE       "AS"
@@ -25,7 +24,7 @@ private:
     BLECharacteristic *pChar;
 public:
     explicit BLEController(BLECharacteristicCallbacks* charCallback) {
-        Printer::println(TAG_BLE, "Starting BLE...");
+        Serial.printf("%s %s\r\n", TAG_BLE, "Starting BLE...");
 
         BLEDevice::init(BLE_NAME);
         BLEServer *pServer = BLEDevice::createServer();

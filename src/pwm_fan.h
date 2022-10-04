@@ -3,9 +3,8 @@
 #include <BLECharacteristic.h>
 #include <analogWrite.h>
 #include <EEPROM.h>
-#include "printer.h"
 
-#define PWM_FAN_TAG  "PWM_FAN"
+#define PWM_FAN_TAG  "[PWM_FAN]"
 
 #define PWN_CHAN 0
 #define PWN_FREQ 156250
@@ -20,28 +19,12 @@ class PWMFanBLECallback: public BLECharacteristicCallbacks {
 private:
     uint8_t            currentPWM = 0;
     uint               currentRPM = 0;
-    BLECharacteristic* pCharacteristic;
 public:
     explicit PWMFanBLECallback() {
-        this->currentPWM = EEPROM.readByte(0);
-
         ledcSetup(PWN_CHAN, PWN_FREQ, 8);
         ledcAttachPin(PWM_PIN, PWN_CHAN);
-    }
 
-    void setBLECharacteristic(BLECharacteristic* pCharacteristic) {
-        this->pCharacteristic = pCharacteristic;
-    }
-
-    void refreshCurrentRPMAndNotifyIfChanged() {
-        // uint currentRPM = analogRead(RPM_PIN);
-        // if (currentRPM != this->currentRPM) {
-        //     this->currentRPM = currentRPM;
-        //     if (this->pCharacteristic != nullptr) {
-        //         this->pCharacteristic->setValue(this->currentRPM);
-        //         this->pCharacteristic->notify();
-        //     }
-        // }
+        this->setPWM(EEPROM.readByte(0));
     }
 
     void setPWM(uint8_t pwm) {
@@ -56,15 +39,14 @@ public:
             uint8_t cmd = value[0];
             switch (cmd) {
             case CMD_RESERVED:
-                Printer::println(PWM_FAN_TAG, "CMD_RESERVED");
+                Serial.printf("%s %s\r\n", PWM_FAN_TAG, "CMD_RESERVED");
                 break;
             case CMD_THROTTLE:
                 if (value.length() >= 2) {
                     uint8_t pwmValue = value[1];
                     setPWM(pwmValue);
-                    Printer::println(PWM_FAN_TAG, "NEW PWM");
-                    Printer::println(PWM_FAN_TAG, pwmValue);
-                    this->refreshCurrentRPMAndNotifyIfChanged();
+                    Serial.printf("%s %s\r\n", PWM_FAN_TAG, "NEW PWM");
+                    Serial.printf("%s %d\r\n", PWM_FAN_TAG, pwmValue);
                 }
                 break;
             default:
