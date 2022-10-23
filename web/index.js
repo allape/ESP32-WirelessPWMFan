@@ -1,3 +1,7 @@
+const BLE_NAME = 'WirelessPWMFan'
+const SERVICE_UUID = '7b742148-fe4e-411e-a762-fd5967d77491'
+const CHAR_UUID = '10971da0-aa16-4042-a054-a1501bb3f2d5'
+
 let char, server;
 
 async function sendByBLE(percent) {
@@ -6,15 +10,15 @@ async function sendByBLE(percent) {
             {
                 filters:[
                     {
-                        name:'WirelessPWMFan',
+                        name: BLE_NAME,
                     },
                 ],
-                optionalServices: ['7b742148-fe4e-411e-a762-fd5967d7749b'],
+                optionalServices: [SERVICE_UUID],
             },
         )
         server = await device.gatt.connect()
-        const service = await server.getPrimaryService('7b742148-fe4e-411e-a762-fd5967d7749b')
-        char = await service.getCharacteristic('10971da0-aa16-4042-a054-a1501bb3f2d5')
+        const service = await server.getPrimaryService(SERVICE_UUID)
+        char = await service.getCharacteristic(CHAR_UUID)
     }
     await char.writeValue(Uint8Array.of(1, Math.floor(255 * (percent / 100))))
 }
