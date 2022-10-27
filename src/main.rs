@@ -54,7 +54,8 @@ fn main() -> ! {
         })
         .unwrap();
 
-    let mut channel0 = ledc.get_channel(channel::Number::Channel0, io.pins.gpio2.into_push_pull_output());
+    let builtin_led = io.pins.gpio2.into_push_pull_output();
+    let mut channel0 = ledc.get_channel(channel::Number::Channel0, builtin_led);
 
 
     let delay = Delay::new(&clocks);
