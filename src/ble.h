@@ -14,6 +14,9 @@
 
 class ServerCallbacks: public BLEServerCallbacks {
 public:
+    void onConnect(BLEServer *pServer) override {
+        BLEDevice::startAdvertising();
+    }
     void onDisconnect(BLEServer *pServer) override {
         BLEDevice::startAdvertising();
     }

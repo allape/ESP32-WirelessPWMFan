@@ -7,10 +7,9 @@
 #define PWM_FAN_TAG  "[PWM_FAN]"
 
 #define PWN_CHAN        0
-#define PWN_FREQ        156250
+#define PWN_FREQ        31
 #define PWM_PIN         5
 // #define RPM_PIN 22  // TODO
-#define MAX_PWM         255
 
 #define CMD_RESERVED    0
 #define CMD_THROTTLE    1
@@ -26,13 +25,13 @@ public:
 
         this->setPWM(EEPROM.readByte(0));
 
-        analogWrite(BUILTIN_LED, 0, 255);
+        analogWrite(BUILTIN_LED, 0);
     }
 
     void setPWM(byte pwm) {
         this->currentPWM = pwm;
         ledcWrite(PWN_CHAN, pwm);
-        analogWrite(BUILTIN_LED, pwm, 255);
+        analogWrite(BUILTIN_LED, pwm);
         EEPROM.put(0, pwm);
     }
 
