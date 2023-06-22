@@ -8,7 +8,7 @@
 
 #define PWN_CHAN        0
 #define PWN_FREQ        31
-#define PWM_PIN         5
+#define PWM_PIN         19
 // #define RPM_PIN 22  // TODO
 
 #define CMD_RESERVED    0
@@ -24,8 +24,6 @@ public:
         ledcAttachPin(PWM_PIN, PWN_CHAN);
 
         this->setPWM(EEPROM.readByte(0));
-
-        analogWrite(BUILTIN_LED, 0);
     }
 
     void setPWM(byte pwm) {
@@ -33,6 +31,7 @@ public:
         ledcWrite(PWN_CHAN, pwm);
         analogWrite(BUILTIN_LED, pwm);
         EEPROM.put(0, pwm);
+        EEPROM.commit();
     }
 
     void onWrite(BLECharacteristic *pCharacteristic) override {
